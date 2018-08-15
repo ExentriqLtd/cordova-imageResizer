@@ -37,41 +37,9 @@
     UIImage *img = [self getImageUsingOptions:options];
     
     UIImage *scaledImage = nil;
-    CGFloat newHeight;
-    CGFloat newWidth;
-    if ([resizeType isEqualToString:@"factorResize"] == YES) {
-        newWidth = img.size.width * width;
-        newHeight = img.size.height * height;
-    } else if ([resizeType isEqualToString:@"minPixelResize"] == YES) {
-        CGFloat widthFactor = width/img.size.width;
-        CGFloat heightFactor = height/img.size.height;
-        CGFloat scaleFactor = 0.0;
-        if (widthFactor > heightFactor && widthFactor <= 1.0) {
-            scaleFactor = widthFactor;
-        } else if (heightFactor <= 1.0) {
-            scaleFactor = heightFactor;
-        } else {
-            scaleFactor = 1.0;
-        }
-        newWidth = img.size.width * scaleFactor;
-        newHeight = img.size.height * scaleFactor;
-    } else {
-        CGFloat widthFactor = width / img.size.width;
-        CGFloat heightFactor = height / img.size.height;
-        CGFloat scaleFactor = 0.0;
-        if (widthFactor == 0.0) {
-        	   scaleFactor = heightFactor;
-        } else if (heightFactor == 0.0) {
-        	   scaleFactor = widthFactor;
-        } else if (widthFactor > heightFactor) {
-            scaleFactor = heightFactor; // scale to fit height
-        } else {
-            scaleFactor = widthFactor; // scale to fit width
-        }
-        newWidth = img.size.width * scaleFactor;
-        newHeight = img.size.height * scaleFactor;
-    }
-    
+    CGFloat newHeight = height;
+    CGFloat newWidth = width;
+
     //Double size for retina if option set to true
     if (accountForPixelDensity && [[UIScreen mainScreen] respondsToSelector:@selector(scale)] && [[UIScreen mainScreen] scale] == 2.0) {
         if (img.size.width > newWidth * 2 && img.size.height > newHeight * 2) {
@@ -105,6 +73,7 @@
         }
         
         NSString *encodedString = [imageDataObject base64EncodingWithLineLength:0];
+
         NSDictionary* result = [NSDictionary dictionaryWithObjects:[NSArray arrayWithObjects:encodedString, newWidthObj, newHeightObj, nil] forKeys:[NSArray arrayWithObjects: @"imageData", @"width", @"height", nil]];
         
         if (encodedString != nil) {
@@ -153,6 +122,7 @@
     UIImage * img = [self getImageUsingOptions:options];
     NSNumber *width = [[NSNumber alloc] initWithInt:img.size.width];
     NSNumber *height = [[NSNumber alloc] initWithInt:img.size.height];
+
     NSDictionary* dic = [NSDictionary dictionaryWithObjects:[NSArray arrayWithObjects:width,height,nil] forKeys:[NSArray arrayWithObjects: @"width", @"height", nil]];
     
     CDVPluginResult* pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_OK messageAsDictionary:dic];

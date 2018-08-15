@@ -2,7 +2,7 @@
 <plugin xmlns="http://www.phonegap.com/ns/plugins/1.0"
   xmlns:android="http://schemas.android.com/apk/res/android"
   id="cordova-plugin-image-resizer"
-  version="1.0.0">
+  version="0.1.2">
 
 	<name>ImageResizer</name>
 	 
@@ -14,7 +14,7 @@
 		<engine name="cordova" version=">=3.0.0" />
 	</engines>  
 	
-	<dependency id="cordova-plugin-file" version=">=2.0.0" />
+	<dependency id="cordova-plugin-file" version="^6.0.1" />
 
 	<js-module src="www/imageresize.js" name="ImageResizePlugin">
 		<clobbers target="plugins.imageResizer" />
